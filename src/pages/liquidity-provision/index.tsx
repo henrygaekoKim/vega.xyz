@@ -31,6 +31,7 @@ import React, {
   useState,
 } from 'react'
 import BoxTitle from '../../components/BoxTitle'
+import Seo from '../../components/Seo'
 import Container from '../../components/Container'
 import GlitchTitle from '../../components/GlitchTitle'
 import Layout from '../../components/Layout'
@@ -38,7 +39,7 @@ import LeadingLine from '../../components/LeadingLine'
 import Link from '../../components/UI/Link'
 import { Description } from '../../components/VegaMarkets/Description'
 import { useMarketLiquidityProviders } from '../../hooks/use-market-liquidity'
-import { useMarkets } from '../../hooks/use-markets'
+import { useMarkets, validMarketStates } from '../../hooks/use-markets'
 import { calc24hVolume } from '../../utils/vega/24hVolume'
 import { getStatus } from '../../utils/vega/getStatus'
 import './liquidity-provision.css'
@@ -66,18 +67,21 @@ const MarketsLiquidity = () => {
 
   return (
     <Layout stickyHeader={false}>
+      <Seo
+        title={t('Liquidity Provision')}
+        description={t(
+          'Liquidity providers receive a share of fees paid during trading in exchange for providing liquidity on the network.'
+        )}
+      />
       <Container dataCy={'main'}>
         {missingTranslations && <TranslationsBanner />}
         <div className="mx-auto max-w-[61rem] pt-6 text-center lg:pt-24">
-          <h1>
-            <BoxTitle text={t('Use Vega')} />
-          </h1>
           <GlitchTitle
             level="1"
             color="red"
             className="title-m md:title-l lg:title-xl mb-4 mt-4 text-center md:mb-6"
           >
-            <Trans t={t}>Provide Liquidity</Trans>
+            <Trans t={t}>Liquidity Provision</Trans>
           </GlitchTitle>
         </div>
         <div className="mx-auto mb-3 max-w-[44rem]">
@@ -557,10 +561,3 @@ const percentageFormatter = (value) => {
 
 const liquidityDetailsConsoleLink = (marketId: string, consoleLink: string) =>
   `${consoleLink}/#/liquidity/${marketId}`
-
-const validMarketStates = [
-  'STATE_UNSPECIFIED',
-  'STATE_PENDING',
-  'STATE_ACTIVE',
-  'STATE_SUSPENDED',
-]
